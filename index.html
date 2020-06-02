@@ -13,28 +13,28 @@
 	<nav class="navbar navbar-dark bg-dark">
 		<!-- Navbar content -->
 		<span class="navbar-brand mb-0 h1">DEMS: Dorm. union Equipment Management System</span>
-		<a class="navbar-brand" href="https://docs.google.com/document/d/1qJT5WRlt14vhMCA0wEtWoKtxtDG8xJul4OpETx7TGvM/edit">사용자 메뉴얼</a>
+		<a class="navbar-brand" href="https://docs.google.com/document/d/1qJT5WRlt14vhMCA0wEtWoKtxtDG8xJul4OpETx7TGvM/edit">사용자 매뉴얼</a>
 	</nav>
 </head>
 <body>
 
 	<table id="dtHorizontalVerticalExample" class="table table-striped table-bordered table-sm " cellspacing="0"
-	width="100%">
+	width="100%" >
 	<thead>
 		<tr>
-			<th class="th-sm">Category
+			<th class="th-sm">분류
 			</th>
-			<th class="th-sm">Name
+			<th class="th-sm">물품 명
 			</th>
-			<th class="th-sm">Available
+			<th class="th-sm">재고
 			</th>
-			<th class="th-sm">Period
+			<th class="th-sm">대여 기간
 			</th>
-			<th class="th-sm">Deposit(보증금)
+			<th class="th-sm">보증금
 			</th>
-			<th class="th-sm">Rental Fee(대여)
+			<th class="th-sm">대여료
 			</th>
-			<th class="th-sm">Remark(비고)
+			<th class="th-sm">비고
 			</th>
 		</tr>
 	</thead>
@@ -43,7 +43,7 @@
 			<td>야외용품</td>
 			<td>BBQ1세트(불판, 버너, 집게, 가위)</td>
 			<td>39</td>
-			<td>월화수: 금주 목/목: 주 월</td>
+			<td>월화수: 이번 목 / 목: 다음 월</td>
 			<td>5,000won/1set</td>
 			<td>1,000won/1set</td>
 			<td>late: 1,000won/1day</td>
@@ -52,7 +52,7 @@
 			<td>야외용품</td>
 			<td>가위, 집게 1쌍</td>
 			<td>39</td>
-			<td>월화수: 금주 목/목: 주 월</td>
+			<td>월화수: 이번 목 / 목: 다음 월</td>
 			<td>1,000won/1set</td>
 			<td>-</td>
 			<td>-</td>
@@ -141,19 +141,19 @@
 	</tbody>
 	<tfoot>
 		<tr>
-			<th>Category
+			<th class="th-sm">분류
 			</th>
-			<th>Name
+			<th class="th-sm">물품 명
 			</th>
-			<th>Available
+			<th class="th-sm">재고
 			</th>
-			<th>Period
+			<th class="th-sm">대여 기간
 			</th>
-			<th>Deposit(보증금)
+			<th class="th-sm">보증금
 			</th>
-			<th>Rental Fee(대여료)
+			<th class="th-sm">대여료
 			</th>
-			<th>Remark(비고)
+			<th class="th-sm">비고
 			</th>
 		</tr>
 	</tfoot>
@@ -180,7 +180,7 @@
 	$(document).ready(function () {
 		$('#dtHorizontalVerticalExample').DataTable({
 			"scrollX": true,
-			"scrollY": 200,
+			"scrollY": 320,
 		});
 		$('.dataTables_length').addClass('bs-select');
 	});
