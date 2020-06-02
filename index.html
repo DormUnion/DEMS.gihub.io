@@ -23,15 +23,34 @@
     <!-- Navbar content -->
     <div class="input-group">
       <span class="navbar-brand mb-0 h1">DEMS: Dormitory union Equipment Management System</span>
-
-
-      <input id="txtName" type="text" class="form-control border-dark" width="50"placeholder="Search">
-      <div class="input-group-append">
-        <button id="btnSearch" class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i>Enter</button>
-        <button id="btnClear" class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i>Reset</button>
+      
+      <div class="input-group-append form-control-all">
+        <a class="navbar-brand btn_electric:hover" target="blank" href="https://docs.google.com/document/d/1qJT5WRlt14vhMCA0wEtWoKtxtDG8xJul4OpETx7TGvM/edit ">매뉴얼</a>
+        <input id="txtName" type="text" class="form-control border-dark " placeholder="Search">
+        <button id="btnSearch" class="btn btn-outline-secondary form-control-btn" type="button"><i class="fa fa-search"></i>Enter</button>
+        <button id="btnClear" class="btn btn-outline-secondary form-control-btn" type="button"><i class="fa fa-search"></i>Reset</button>
+        
       </div>
+
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <form class="form-inline ml-auto">
+              <div class="input-group">
+                <input id="txtName" type="text" class="form-control border-dark" placeholder="Search">
+                <div class="input-group-append">
+                  <button id="btnSearch" class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i>Enter</button>
+                  <button id="btnClear" class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i>Reset</button>
+                </div>
+              </div>
+            </form>
+          </ul>
+        </div>
+
+
+
     </div>
-    <!-- <a class="navbar-brand" target="blank" href="https://docs.google.com/document/d/1qJT5WRlt14vhMCA0wEtWoKtxtDG8xJul4OpETx7TGvM/edit ">사용자 매뉴얼</a> -->
+    
   </div>
 </head>
 
@@ -44,7 +63,7 @@
       <table id="grid"></table>
     </div>
 
-    
+
     <!-- Editable table -->
     <!-- /#page-content-wrapper -->
   </div>

@@ -89,10 +89,29 @@
   border: #D8D8D8 solid 0.5px;
   padding: 8px;
   transition: all 0.1s ease;
-  padding: -10px
-   /* -webkit-transition: all 0.1s ease;
-   -moz-transition: all 0.1s ease;*/
+  padding: -10px;
  }
+
+ .form-control {
+     position: relative;
+     padding: 10px;
+     margin: 0;
+     border: 0;
+     width: 200px;
+     height: 40px;
+   }
+
+   .form-control-all{
+     position: relative;
+     left: 500px;
+   }
+
+   .form-control.btn{
+     position: absolute;
+     left: 210px;
+   }
+
+
 
  .btn_electric:hover {
   color: #ffffff;
