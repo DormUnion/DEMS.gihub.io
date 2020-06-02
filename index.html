@@ -7,6 +7,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-firestore.js"></script>
 
   <title>DEMS</title>
 
@@ -81,6 +83,7 @@
   <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script type="text/javascript" src="./vendor/jquery/checkbox.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.14.4/firebase-analytics.js"></script>
 
   <!-- Menu Toggle Script -->
   <script>
@@ -94,43 +97,67 @@
   </script>
   <script type="text/javascript">
     $(document).ready(function () {
-      var data, grid;
-      data = [
-      { 'Item': 'BBQ 1세트(불판, 버너, 집게, 가위)', 'Category':'야외용품','Stock':'39','RentalPeriod':'월화수:이번주 목\n/ 목:다음주 월','Deposit':'5,000','RentalFee':'1,000','Remark':'late: 하루당 1,000원'},
-      { 'Item': '가위, 집게 1쌍', 'Category':'야외용품','Stock':'39','RentalPeriod':'월화수:이번주 목\n/ 목:다음주 월','Deposit':'5,000','RentalFee':'1,000','Remark':'late: 하루당 1,000원'},
-      { 'Item': '고리던지기', 'Category':'운동기구','Stock':'2','RentalPeriod':'7','Deposit':'5,000','RentalFee':'1,000','Remark':'late: 하루당 1,000원'},
-      { 'Item': '농구공', 'Category':'운동기구','Stock':'8','RentalPeriod':'7','Deposit':'5,000','RentalFee':'1,000','Remark':'late: 하루당 1,000원'},
-      { 'Item': '신디사이져', 'Category':'악기','Stock':'1','RentalPeriod':'7','Deposit':'5,000','RentalFee':'1,000','Remark':'late: 하루당 1,000원'},
-      { 'Item': '젠베', 'Category':'악기','Stock':'1','RentalPeriod':'7','Deposit':'5,000','RentalFee':'1,000','Remark':'late: 하루당 1,000원'},
-      { 'Item': '장미라이트', 'Category':'이벤트','Stock':'55','RentalPeriod':'7','Deposit':'5,000','RentalFee':'1,000','Remark':'lost: 개당 500원'},
-      { 'Item': '음향스피커(대)', 'Category':'전자기기','Stock':'2','RentalPeriod':'7','Deposit':'5,000','RentalFee':'1,000','Remark':'late: 하루당 1,000원'},
-      { 'Item': '할리갈리', 'Category':'게임용품','Stock':'1','RentalPeriod':'7','Deposit':'5,000','RentalFee':'1,000','Remark':'late: 하루당 1,000원'},
-      { 'Item': '확성기', 'Category':'구호물품','Stock':'2','RentalPeriod':'7','Deposit':'5,000','RentalFee':'1,000','Remark':'late: 하루당 1,000원'},
-      { 'Item': '끌차(소)', 'Category':'입주퇴거','Stock':'22','RentalPeriod':'7','Deposit':'5,000','RentalFee':'1,000','Remark':'late: 하루당 1,000원'}
-      ];
-      grid = $('#grid').grid({
-        primaryKey: 'Item',
-        dataSource: data,
-        columns: [
-        { field: 'Category', width: 100, title: '카테고리', align: 'center', sortable: true },
-        { field: 'Item', width: 250, title: '물품명', align: 'center', sortable: true },
-        { field: 'Stock', title: '재고', align: 'center', sortable: true },
-        { field: 'RentalPeriod', width: 150, title: '대여기간(일)', align: 'center', sortable: true },
-        { field: 'Deposit', width: 150, title: '보증금(원)', align: 'center', sortable: true },
-        { field: 'RentalFee', title: '대여료(원)', align: 'center', sortable: true },
-        { field: 'Remark', title: '비고', align: 'center', sortable: true }
-        ],
-        pager: { limit: 10 }
-      });
+      var firebaseConfig = {
+        apiKey: "AIzaSyAqwpkJRTaDGkSFcRcc8kx2f6M5foeEFEE",
+        authDomain: "dems-2a183.firebaseapp.com",
+        databaseURL: "https://dems-2a183.firebaseio.com",
+        projectId: "dems-2a183",
+        storageBucket: "dems-2a183.appspot.com",
+        messagingSenderId: "554123402821",
+        appId: "1:554123402821:web:12cd312639412b240d8d2c",
+        measurementId: "G-PKCJ378JY8"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+      const db = firebase.firestore();
 
-      $('#btnSearch').on('click', function () {
-        grid.reload({ page: 1, Name: $('#txtName').val(), PlaceOfBirth: $('#txtPlaceOfBirth').val() });
-      });
-      $('#btnClear').on('click', function () {
-        $('#txtName').val('');
-        $('#txtPlaceOfBirth').val('');
-        grid.reload({ page: 1, Name: $('#txtName').val(), PlaceOfBirth: $('#txtPlaceOfBirth').val() });
-      });
+      var grid;
+      var data = [];
+      db.collection('물품').orderBy('Category').get().then((snapshot) => {
+      let changes = snapshot.docChanges();
+        changes.forEach(change => {
+          var late;
+          (change.doc.data().Late > 0) ? late = 'late: 하루당'+change.doc.data().Late+'\n' : late = '';
+
+          if(change.type == 'added'){
+            data.push({ 
+              'Category': change.doc.data().Category, 
+              'Item': change.doc.data().Name, 
+              'Stock': change.doc.data().Available, 
+              'RentalPeriod': change.doc.data().Period, 
+              'Deposit': change.doc.data().Cert, 
+              'RentalFee': change.doc.data().Rental,
+              'Remark': late + change.doc.data().Etc });
+          }
+        })
+
+          grid = $('#grid').grid({
+          primaryKey: 'Item',
+          dataSource: data,
+          columns: [
+          { field: 'Category', width: 100, title: '카테고리', align: 'center', sortable: true },
+          { field: 'Item', width: 250, title: '물품명', align: 'center', sortable: true },
+          { field: 'Stock', title: '재고', align: 'center', sortable: true },
+          { field: 'RentalPeriod', width: 150, title: '대여기간(일)', align: 'center', sortable: true },
+          { field: 'Deposit', width: 150, title: '보증금(원)', align: 'center', sortable: true },
+          { field: 'RentalFee', title: '대여료(원)', align: 'center', sortable: true },
+          { field: 'Remark', title: '비고', align: 'center', sortable: true }
+          ],
+          pager: { limit: 10 }
+        });
+
+        $('#btnSearch').on('click', function () {
+          grid.reload({ page: 1, Name: $('#txtName').val(), PlaceOfBirth: $('#txtPlaceOfBirth').val() });
+        });
+        $('#btnClear').on('click', function () {
+          $('#txtName').val('');
+          $('#txtPlaceOfBirth').val('');
+          grid.reload({ page: 1, Name: $('#txtName').val(), PlaceOfBirth: $('#txtPlaceOfBirth').val() });
+        });
+      })
+
+      
     });
   </script>
 </body>
