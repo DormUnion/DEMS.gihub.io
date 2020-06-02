@@ -92,27 +92,6 @@
   padding: -10px;
  }
 
- .form-control {
-     position: relative;
-     padding: 10px;
-     margin: 0;
-     border: 0;
-     width: 200px;
-     height: 40px;
-   }
-
-   .form-control-all{
-     position: relative;
-     left: 500px;
-   }
-
-   .form-control.btn{
-     position: absolute;
-     left: 210px;
-   }
-
-
-
  .btn_electric:hover {
   color: #ffffff;
   background-color: #D8D8D8;
