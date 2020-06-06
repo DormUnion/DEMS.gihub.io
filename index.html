@@ -27,7 +27,8 @@
       
       <div id="contents-in-nav" class="input-group-append form-control-all">
         <a class="navbar-brand btn_electric:hover" target="blank" href="https://docs.google.com/document/d/1qJT5WRlt14vhMCA0wEtWoKtxtDG8xJul4OpETx7TGvM/edit ">매뉴얼</a>
-        <button id="btnSearch" class="btn btn-outline-secondary form-control-btn" type="button"><i class="fa fa-search"></i>Search</button>
+        <input id="txtName" type="text" class="form-control border-dark " placeholder="Search">
+        <button id="btnSearch" class="btn btn-outline-secondary form-control-btn" type="button"><i class="fa fa-search"></i>Enter</button>
         <button id="btnClear" class="btn btn-outline-secondary" type="button" onClick="window.location.reload()"><i class="fa fa-search"></i>Reset</button>
       </div>
     </div>
@@ -126,8 +127,10 @@
         });
 
         $('#btnSearch').on('click', function () {
-          grid.reload({ page: 1, Item: $('#txtName').val(), Category: $('#txtName').val(), Stock: $('#txtName').val(),RentalPeriod: $('#txtName').val(),Deposit: $('#txtName').val(),RentalFee: $('#txtName').val(),Remark: $('#txtName').val(),});
+          grid.reload({ page: 1, Item: $('#txtName').val()});
+          $('#txtName').val('');
         });
+
       })
     });
   </script>
